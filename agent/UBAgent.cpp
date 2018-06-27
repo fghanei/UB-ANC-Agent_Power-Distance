@@ -14,8 +14,8 @@
 
 int flight_direction = 180; //0  north, 90 east
 int flight_distance = 100;
-float target_stabilize_time = 3.0; //in seconds
-float target_wait_time = 7.0; //in seconds
+float target_stabilize_time = 1.0; //in seconds
+float target_wait_time = 5.0; //in seconds
 
 UBAgent::UBAgent(QObject *parent) : QObject(parent),
     m_mav(nullptr)
@@ -281,8 +281,6 @@ void UBAgent::stateMission() {
         }    
         // reaching and waiting
         case (3): {
-	    // sending information to the logger
-            
     	    if ((m_mav->coordinate().distanceTo(dest) < POINT_ZONE) &&
                   (abs(m_mav->coordinate().altitude() - dest.altitude()) < POINT_ZONE)) {
                 m_mission_data.tick++;
@@ -352,5 +350,6 @@ void UBAgent::stateMission() {
 //            m_mission_data.stage++;
 //        }
     }
+    // sending information to the logger          
     logInfo();
 }
